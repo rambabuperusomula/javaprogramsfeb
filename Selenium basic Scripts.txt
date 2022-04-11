@@ -1,0 +1,192 @@
+1.how to handle Checkbox in Dropdownlist?
+
+        driver.findElement(By.xpath("give the path")).click();
+        WebElement CheckBox2 = driver.findElement(By.xpath("give the path"));
+        CheckBox2.click();
+
+
+2.window handle:
+Robot rb = new Robot();
+rb.keyPress(KeyEvent.VK_ENTER);
+
+
+3.Window Scrolling:
+JavascriptExecutor jsa =  (JavascriptExecutor) driver;
+jsa.executeScript("window.scrollTo(0, -1000)");	
+
+4.taking ScreenShots line by line "timestamp"
+File scr=((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+	     File dest= new File("C:\\Users\\rambabu.pe\\Desktop\\Screenshots\\image2" +" "+timestamp()+".png");
+	     FileUtils.copyFile(scr, dest);
+	        Thread.sleep(3000);
+    must call this methode
+
+                                private String timestamp() {
+				// TODO Auto-generated method stub
+			        return new SimpleDateFormat("dd-MM-yyyy HH-mm-ss").format(new Date());
+			}
+
+5.taking Screenshots line by line
+
+file src=((TakeScreenshot) driver).getScreenshotAs(OutputType.FILE);
+File dest=new File("C:\\Users\\rambabu.pe\\Desktop\\Screenshots\\image2.png");
+FileUtils.copyFile(src,dest);
+
+6.TakeFullScreen Shorts
+//declar globaly
+static String format="jpg";	
+static Rectangle fullscreen=new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+//aftermenthod
+		Robot rb=new Robot();
+//paste stepwise
+BufferedImage image=rb.createScreenCapture(fullscreen);
+ImageIO.write(image, format, new File("C:\\SeleniumScripts\\DMS2.0\\Screenshots\\image1."+format));
+//                                  OR
+//		            String format = "jpg";
+//		            String fileName = "C:\\Users\\rambabu.pe\\Desktop\\Screenshots" + format;
+//		            Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+//		            Robot robot1 = new Robot();
+//		            BufferedImage screenFullImage = robot1.createScreenCapture(screenRect);
+//		            ImageIO.write(screenFullImage, format, new File(fileName));	    	   
+
+
+7.Child element Scrolling Code
+                                            //Child Screen Title path  //vartical
+        driver.findElement(By.xpath("/html/body/app-root/app-draft/body/app-popup[2]/div/div/div")).click(); 
+        Robot rb = new Robot();
+        rb.keyPress(KeyEvent.VK_PAGE_DOWN);
+        rb.keyPress(KeyEvent.VK_PAGE_DOWN);
+8.Scrolling 
+//horizantal
+		WebElement scroll=driver.findElement(By.xpath("/html/body/app-root/app-print-reviewer/section/div/div/div/div[2]/div/div"));
+		scroll.click();
+		Robot rb=new Robot();
+		rb.keyPress(KeyEvent.VK_RIGHT);
+		rb.keyPress(KeyEvent.VK_RIGHT);
+		Thread.sleep(1000);
+		rb.keyPress(KeyEvent.VK_RIGHT);
+		rb.keyPress(KeyEvent.VK_RIGHT);
+		Thread.sleep(1000);
+
+9. Highlight paticular Enter Field
+		WebElement ele1 = driver.findElement(By.xpath("/html/body/app-root/app-login/div/section[1]/div/button"));
+		JavascriptExecutor js1 = (JavascriptExecutor) driver;
+		js1.executeScript("arguments[0].setAttribute('style', 'background: ; border: 2px solid red;');", ele1);
+
+10. termination
+	@FindBy(xpath = "//button[text()='Terminate Other Login']")
+	List<WebElement> terminate;
+	@FindBy(xpath = "//span[text()='INCIDENT  Management System - Hetero Labs Limited (Unit-1) Onco ']")
+	List<WebElement> plant;
+	public void clickplant()
+	{
+		if (!terminate.isEmpty()) {
+			terminate.get(0).click();			
+		if (!plant.isEmpty()) {
+			plant.get(0).click();
+		}		
+		else {
+			System.out.println("it is clicked");
+		}	
+		}
+	}	
+
+11. folder refresh code
+	public void FolderRefresh() {
+		ServiceLoader<Driver> sl = ServiceLoader.load(Driver.class);
+		Iterator<Driver> it = sl.iterator();
+		while (it.hasNext()) {
+		  Driver driver = (Driver) it.next();
+		  
+		}
+	}
+12. Chrome is automated is disable Code.
+	WebDriverManager.chromedriver().setup();
+        ChromeOptions co = new ChromeOptions();
+        co.addArguments("--disable-notifications");
+        String[] s = new String[] {"enable-automation"};
+        co.setExperimentalOption("excludeSwitches",s);
+
+        //popups save password like
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);        
+        co.setExperimentalOption("prefs", prefs);
+        
+        driver = new ChromeDriver(co);   // 
+
+        System.setProperty("webdriver.chrome.silentOutput","true");
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get(pro.getProperty("baseURl"));
+		driver.manage().window().maximize();
+
+13.addcaptcha(like 1+7) Code
+		String capchavalue = driver.findElement(By.xpath("//span[@class='captcha_num CaptchaLabel']")).getText().trim();
+		String removespace = capchavalue.replaceAll("\\s+", "");
+		String[] parts = removespace.split("\\+");
+		String part1 = parts[0];
+		String part2 = parts[1];
+		String[] parts1 = part2.split("\\=");
+		String part11 = parts1[0];
+		int summation = Integer.parseInt(part1) + Integer.parseInt(part11);
+		String final_value = String.valueOf(summation);
+		//UserCaptcha
+		WebElement sum=(driver.findElement(By.id("UserCaptcha")));
+		sum.clear();
+	        sum.sendKeys(final_value);		
+		//Click on 
+		driver.findElement(By.id("enrollhere")).click();
+
+14.handle multiple radiosbuttons using for loop
+
+		List <WebElement> radiobuttons = driver.findElements(By.id("'#yes'+i"));
+		for (int i =0; i<radiobuttons.size(); i++ )
+       {
+			WebElement radio=radiobuttons.get(i);
+			String value=radio.getAttribute("value");
+			System.out.println("radios are"+value);
+            radiobuttons.get(i).click();
+            Thread.sleep(3000);
+ //         break;
+
+       }	
+
+//Print
+driver.findElement(By.xpath("//*[contains(text(),\"Print\")]")).click(); // print
+Thread.sleep(3000);
+Robot r = new Robot();
+r.keyPress(KeyEvent.VK_ESCAPE);
+r.keyRelease(KeyEvent.VK_ESCAPE);
+Thread.sleep(3000);
+driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
+Thread.sleep(3000);
+driver.close();
+Thread.sleep(3000);
+driver.switchTo().window(driver.getWindowHandles().toArray()[0].toString());
+Thread.sleep(3000);
+
+//browser
+	        WebDriverManager.chromedriver().setup();
+		ChromeOptions co = new ChromeOptions();
+		co.addArguments("--disable-notifications");
+
+		String[] s = new String[] {"enable-automation"};
+		co.setExperimentalOption("excludeSwitches",s);
+
+		Map<String, Object> prefs = new HashMap<String, Object>();
+		prefs.put("credentials_enable_service", false);
+		prefs.put("profile.password_manager_enabled", false);
+
+		co.setExperimentalOption("prefs", prefs);
+
+		driver = new ChromeDriver(co);   // 1
+		System.setProperty("webdriver.chrome.silentOutput","true");
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		return (driver);	
+16. ZOOm In ZOOM Out
+ JavascriptExecutor executor = (JavascriptExecutor)driver;
+executor.executeScript("document.body.style.zoom = '75%'");
+
+17.Scrolldown the page till the element is found
+		JavascriptExecutor js =  (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();",webelement);	
